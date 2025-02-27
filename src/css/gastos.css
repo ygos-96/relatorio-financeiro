@@ -1,0 +1,106 @@
+body {
+    color: var(--cor-escura);
+}
+
+.categoria {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+}
+
+.Alimentação {
+    background-color: #6e5021;
+}
+
+.Lazer {
+    background-color: #018790;
+}
+
+
+.Contas {
+    background-color: #e00b5b;
+}
+
+
+.Transporte {
+    background-color: #4f364a;
+}
+
+.btn-prev:hover,
+.btn-prev:active,
+.btn-prev:focus{
+    outline: none;
+    border: 0;
+    box-shadow: none;
+}
+
+.line {
+    background-color: var(--cor-escura);
+    height: 8px;
+    width: 65vw;
+}
+
+.btn-plus,
+.btn-plus:hover,
+.btn-plus:active,
+.btn-plus:focus {
+    background-color: var(--cor-escura);
+    border: 2px solid #ffff;
+    bottom: 50px;
+    right: 50px;
+    outline: none;
+    box-shadow: none;
+}
+
+table,
+tbody {
+    max-width: 850px;
+    width: 100%;
+}
+
+.table>:not(caption)>*>* {
+    background-color: var(--cor-de-fundo) !important;
+}
+
+.header-table {
+    border-left: 1px solid var(--cor-escura) !important;
+    border-right: 1px solid var(--cor-escura) !important;
+}
+
+
+thead,
+th,
+tbody,
+td {
+    border: none;
+    border-style: none !important;
+}
+
+.value-td,
+.header-table th {
+    color: var(--cor-escura) !important;
+}
+
+.btn-danger {
+    background-color: rgb(190, 5, 5);
+    border: 0;
+}
+
+@media (max-width:500px) {
+    .line {
+        width: 85vw;
+    }
+
+    th,
+    td {
+        font-size: 10px;
+    }
+
+   .total{
+        padding: 0px !important;
+    }
+    .btn-plus span{
+        font-size: 14px;
+    }
+}

@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
         document.querySelector(".imagem-inicio").style.display = "none";
@@ -15,9 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (inputSenha.value === senhaCorreta) {
             window.location.href = "menu.html";
         } else {
-            inputSenha.classList.add("input-error");
-
-    
+            inputSenha.classList.add("input-error");   
             setTimeout(() => {
                 inputSenha.classList.remove("input-error");
             }, 2000);
