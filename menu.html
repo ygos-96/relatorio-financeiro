@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Financeira</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/reset.css">
+    <link rel="stylesheet" href="src/css/buid.css">
+    <link rel="stylesheet" href="src/css/index.css">
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        main{
+            height: 90vh;
+        }
+
+        .menu ul {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            list-style: none;
+        }
+        .menu ul li {
+            width: 170px;
+            height: 170px;
+            border: 2px solid var(--cor-escura);
+            border-radius: 10px;
+        }
+
+        .menu ul li:hover {
+            transform: scale(0.9);
+            transition: 0.3s ease-in-out;
+        }
+
+        .menu ul li a {
+            color: var(--cor-escura);
+            text-decoration: none;
+        }
+
+        @media (max-width:500px) {
+            .menu ul li {
+                width: 100px;
+                height: 100px;
+
+            }
+
+            .menu img {
+                width: 25px;
+                height: 25px;
+            }
+
+            .menu span {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-center flex-column cor-de-fundo fonte-texto">
+    <main class="d-flex justify-content-center align-items-center">
+        <div class="menu">
+            <nav>
+                <ul class="p-0">
+                    <li class="cor-de-fundo">
+                        <a href="gastos.html" class="d-flex flex-column align-items-center justify-content-center h-100">
+                            <img src="src/imagem/menu/gastos.png" class="img-fluid mb-2" width="45" height="45" alt="">
+                            <span class="fonte-titulo text-uppercase">Gastos</span>
+                        </a>
+                    </li>
+                    <li class="cor-de-fundo">
+                        <a href="ganhos.html" class="d-flex flex-column align-items-center justify-content-center h-100">
+                            <img src="src/imagem/menu/ganhos.png" class="img-fluid mb-2" width="45" height="45" alt="">
+                            <span class="fonte-titulo text-uppercase">Ganhos</span>
+                        </a>
+                    </li>
+                    <li class="cor-de-fundo"><a href="resumo.html"
+                            class="d-flex flex-column align-items-center justify-content-center h-100">
+                            <img src="src/imagem/menu/relatorios.png" class="img-fluid mb-2" width="45" height="45" alt="">
+                            <span class="fonte-titulo text-uppercase">Relatório</span>
+                        </a>
+                    </li>
+                    <li class="cor-de-fundo"><a href="investimento.html"
+                            class="d-flex flex-column align-items-center justify-content-center h-100"> <img
+                                src="src/imagem/menu/investimentos.png" class="img-fluid mb-2" width="45" height="45"
+                                alt="">
+                            <span class="fonte-titulo text-uppercase">Investimento</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </main>
+
+    <footer>
+        <p>Criado por: @yg0rg_ <span><i class="fas fa-comment-dollar"></i></span> Ygor Gomes</p>
+    </footer>
+  
+</body>
+
+</html>

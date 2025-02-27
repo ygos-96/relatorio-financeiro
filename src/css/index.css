@@ -1,0 +1,73 @@
+
+
+body {
+    height: 100vh;
+}
+
+main {
+    height: 90vh;
+    color: var(--cor-escura);
+}
+
+.imagem-inicio {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.acesso {
+    display: none;
+    text-align: center;
+}
+
+.acesso label.fade-in,
+.acesso i.fade-in,
+.acesso input.fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.btn {
+    background-color: var(--cor-escura);
+    border: 2px solid #ffffff;
+}
+
+
+.btn:hover,
+.btn:active {
+    background-color: var(--cor-escura);
+    border: 2px solid #ffffff;
+}
+
+.modal-content {
+    background-color: var(--cor-escura);
+}
+
+.modal-body img{
+        width: 80px;
+        height: 80px;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.input-error {
+    border: 2px solid red;
+}
+
+@media (max-width:500px) {
+    .modal-body{
+        padding: 1rem !important;
+    }
+ 
+    .modal-body p{
+        font-size: 14px !important;
+    }
+}

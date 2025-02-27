@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #89E389;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-container {
+            text-align: center;
+        }
+
+        .filter-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Gráficos Financeiros</h2>
+        <a href="index.html" class="btn btn-primary">Voltar</a>
+
+        <div class="filter-container">
+            <label for="dataInicio">Filtrar por período:</label>
+            <input type="date" id="dataInicio" class="form-control d-inline-block w-auto">
+            <input type="date" id="dataFim" class="form-control d-inline-block w-auto">
+            <button id="filtrarBtn" class="btn btn-primary">Aplicar</button>
+        </div>
+
+        <div class="carousel-controls">
+            <button class="carousel-control-prev" type="button" data-bs-target="#financeiroCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <h3 id="carouselTitle" class="text-center">Gastos</h3>
+            <button class="carousel-control-next" type="button" data-bs-target="#financeiroCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div id="financeiroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicadores -->
+            <ol class="carousel-indicators">
+                <li data-bs-target="#financeiroCarousel" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#financeiroCarousel" data-bs-slide-to="1"></li>
+                <li data-bs-target="#financeiroCarousel" data-bs-slide-to="2"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active mb-5" data-title="Gastos">
+                    <div class="row">
+                        <div class="col-md-6"><canvas id="graficoPizzaGastos"></canvas></div>
+                        <div class="col-md-6"><canvas id="graficoBarrasGastos"></canvas></div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-title="Ganhos">
+                    <div class="row">
+                        <div class="col-md-6"><canvas id="graficoPizzaGanhos"></canvas></div>
+                        <div class="col-md-6"><canvas id="graficoBarrasGanhos"></canvas></div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-title="Investimentos">
+                    <div class="row">
+                        <div class="col-md-6"><canvas id="graficoPizzaInvestimentos"></canvas></div>
+                        <div class="col-md-6"><canvas id="graficoBarrasInvestimentos" ></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let graficos = {};
+
+        function carregarDados(tipo, dataInicio, dataFim) {
+            let dados = JSON.parse(localStorage.getItem(tipo)) || [];
+            let categorias = {};
+
+            let dataInicioObj = dataInicio ? new Date(dataInicio + "T00:00:00") : null;
+            let dataFimObj = dataFim ? new Date(dataFim + "T23:59:59") : null;
+
+            dados.forEach(item => {
+                let dataItem = converterData(item.data);
+                let categoria = item.categoria;
+                let valor = parseFloat(item.valor);
+
+                if (dataInicioObj && dataFimObj) {
+                    if (dataItem < dataInicioObj || dataItem > dataFimObj) {
+                        return;
+                    }
+                }
+
+                categorias[categoria] = (categorias[categoria] || 0) + valor;
+            });
+
+            return categorias;
+        }
+
+        function converterData(dataStr) {
+            let partes = dataStr.split(" ");
+            let dataPartes = partes[0].split("/");
+
+            let dataISO = `${dataPartes[2]}-${dataPartes[1]}-${dataPartes[0]}T${partes[1]}:00`;
+
+            return new Date(dataISO);
+        }
+
+        function atualizarGraficos(tipo, idPizza, idBarras, dataInicio, dataFim) {
+            let dados = carregarDados(tipo, dataInicio, dataFim);
+            let categorias = Object.keys(dados);
+            let valores = Object.values(dados);
+            let cores = ["#ff5733", "#33b5e5", "#ffbb33", "#2ecc71"];
+
+
+            if (categorias.length === 0) {
+                console.warn(`Nenhum dado encontrado para: ${tipo}`);
+
+                substituirCanvas(idPizza);
+                substituirCanvas(idBarras);
+
+                return;
+            }
+
+
+            if (graficos[idPizza]) {
+                graficos[idPizza].destroy();
+            }
+            if (graficos[idBarras]) {
+                graficos[idBarras].destroy();
+            }
+
+            substituirCanvas(idPizza);
+            substituirCanvas(idBarras);
+
+            let ctxPizza = document.getElementById(idPizza).getContext("2d");
+            let ctxBarras = document.getElementById(idBarras).getContext("2d");
+
+            graficos[idPizza] = new Chart(ctxPizza, {
+                type: "pie",
+                data: { labels: categorias, datasets: [{ data: valores, backgroundColor: cores }] }
+            });
+
+            graficos[idBarras] = new Chart(ctxBarras, {
+                type: "bar",
+                data: {
+                    labels: categorias,
+                    datasets: [{ label: "Valor (R$)", data: valores, backgroundColor: cores, borderWidth: 1 }]
+                },
+                options: { scales: { y: { beginAtZero: true } } }
+            });
+        }
+
+        function substituirCanvas(idCanvas) {
+            let canvasAntigo = document.getElementById(idCanvas);
+            if (!canvasAntigo) return;
+
+            let novoCanvas = document.createElement("canvas");
+            novoCanvas.id = idCanvas;
+
+            canvasAntigo.replaceWith(novoCanvas);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var carouselElement = document.getElementById('financeiroCarousel');
+            var carousel = new bootstrap.Carousel(carouselElement, {
+                interval: 1800000
+            });
+
+            carouselElement.addEventListener('slide.bs.carousel', function (event) {
+                var activeItem = event.relatedTarget;
+                var newTitle = activeItem.getAttribute('data-title');
+                document.getElementById('carouselTitle').innerText = newTitle;
+            });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let dataInicio = document.getElementById("dataInicio").value;
+            let dataFim = document.getElementById("dataFim").value;
+
+            atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
+            atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
+            atualizarGraficos("investimentos", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim);
+
+            document.getElementById("filtrarBtn").addEventListener("click", function () {
+                let dataInicio = document.getElementById("dataInicio").value;
+                let dataFim = document.getElementById("dataFim").value;
+                atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
+                atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
+                atualizarGraficos("investimentos", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim);
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
