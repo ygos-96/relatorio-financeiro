@@ -2,34 +2,6 @@ body {
     color: var(--cor-escura);
 }
 
-.categoria {
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    display: inline-block;
-}
-
-.Alimentação {
-    background-color: #6e5021;
-}
-
-.Lazer {
-    background-color: #018790;
-}
-
-
-.Contas {
-    background-color: #e00b5b;
-}
-
-
-.Transporte {
-    background-color: #4f364a;
-}
-
-.fa-trash{
-    font-size: 12px;
-}
 
 .btn-prev:hover,
 .btn-prev:active,

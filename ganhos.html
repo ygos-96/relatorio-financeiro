@@ -50,10 +50,14 @@
             background-color: #4f364a;
         }
 
-        .Outros{
+        .Outros {
             background-color: #ffff;
             color: #000000;
             border: 1px solid #000000;
+        }
+
+        .fa-trash {
+            font-size: 12px;
         }
 
         .btn-prev:hover,
@@ -129,7 +133,8 @@
             .total {
                 padding: 0px !important;
             }
-            .btn-plus span{
+
+            .btn-plus span {
                 font-size: 14px;
             }
         }
@@ -162,7 +167,7 @@
                         <th>Ação</th>
                     </tr>
                 </thead>
-                <tbody id="tabela-ganhos"  class="fonte-texto text-center"></tbody>
+                <tbody id="tabela-ganhos" class="fonte-texto text-center"></tbody>
             </table>
 
 
@@ -184,13 +189,13 @@
                     <form id="form-ganhos">
                         <label>Data e Hora:</label>
                         <input type="datetime-local" name="data" id="data" class="form-control" required>
-            
+
                         <label>Motivo:</label>
                         <input type="text" name="motivo" id="motivo" class="form-control" required>
-            
+
                         <label>Valor:</label>
                         <input type="text" name="valor" id="valor" class="form-control" required placeholder="0,00">
-            
+
                         <label>Categoria:</label>
                         <select name="categoria" id="categoria" class="form-control">
                             <option value="Salário">Salário</option>
@@ -198,7 +203,7 @@
                             <option value="Freelancer">Freelancer</option>
                             <option value="Outros">Outros</option>
                         </select>
-            
+
                         <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
                     </form>
                 </div>

@@ -4,55 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="src/css/reset.css">
+    <link rel="stylesheet" href="src/css/buid.css">
+    <link rel="stylesheet" href="src/css/resumo.css">
+
     <style>
-        body {
-            background-color: #89E389;
+        header p {
+            color: var(--cor-escura);
         }
 
-        .carousel-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
+        .line {
+            background-color: var(--cor-escura);
+            height: 8px;
+            width: 65vw;
+        }
+
+        ol {
+            list-style: none;
         }
 
         .carousel-container {
             text-align: center;
         }
 
-        .filter-container {
-            text-align: center;
-            margin-bottom: 20px;
+        #carouselTitle {
+            color: var(--cor-escura);
+        }
+
+        .btn-filter,
+        .btn-filter:hover,
+        .btn-filter:active,
+        .btn-filter:focus {
+            background-color: var(--cor-escura);
+            width: 40px;
+            height: 40px;
+            border: 2px solid #fff;
+            outline: none;
+            box-shadow: none;
         }
     </style>
 </head>
 
-<body>
-    <div class="container mt-4">
-        <h2 class="text-center">Gráficos Financeiros</h2>
-        <a href="index.html" class="btn btn-primary">Voltar</a>
+<body class="cor-de-fundo">
 
-        <div class="filter-container">
-            <label for="dataInicio">Filtrar por período:</label>
-            <input type="date" id="dataInicio" class="form-control d-inline-block w-auto">
-            <input type="date" id="dataFim" class="form-control d-inline-block w-auto">
-            <button id="filtrarBtn" class="btn btn-primary">Aplicar</button>
+    <header class="p-4 pb-0 container d-flex justify-content-center align-items-center flex-column m-auto">
+        <div class="container d-flex flex-column align-items-start justify-content-start w-100">
+            <button class="btn btn-prev" onclick="goBack()"><img src="src/imagem/icones/sair.png" width="30" height="30"
+                    alt="Botao de voltar"></button>
         </div>
 
+        <div class="py-4 d-flex flex-column align-items-start justify-content-start">
+            <p class="fonte-titulo fs-40 mb-0">Relatórios</p>
+            <div class="line"></div>
+        </div>
+    </header>
+    <main>
+        <div class="d-flex justify-content-around align-items-center my-3">
+            <span></span>
+            <h3 id="carouselTitle" class="text-center fonte-titulo fs-35 fw-bold">Gastos</h3>
+            <button class="btn btn-filter  rounded-circle" data-bs-toggle="modal" data-bs-target="#FiltrarDados"><i
+                    class="fas fa-filter text-light fs-13"></i></button>
+        </div>
+
+    </main>
+    <div class="container">
         <div class="carousel-controls">
-            <button class="carousel-control-prev" type="button" data-bs-target="#financeiroCarousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <h3 id="carouselTitle" class="text-center">Gastos</h3>
-            <button class="carousel-control-next" type="button" data-bs-target="#financeiroCarousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
         </div>
 
         <div id="financeiroCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -66,20 +94,20 @@
             <div class="carousel-inner">
                 <div class="carousel-item active mb-5" data-title="Gastos">
                     <div class="row">
-                        <div class="col-md-6"><canvas id="graficoPizzaGastos"></canvas></div>
-                        <div class="col-md-6"><canvas id="graficoBarrasGastos"></canvas></div>
+                        <div class="col-md-6 m-auto"><canvas id="graficoPizzaGastos"></canvas></div>
+                        <div class="col-md-6 m-auto mb-1"><canvas id="graficoBarrasGastos"></canvas></div>
                     </div>
                 </div>
-                <div class="carousel-item" data-title="Ganhos">
+                <div class="carousel-item mb-5" data-title="Ganhos">
                     <div class="row">
-                        <div class="col-md-6"><canvas id="graficoPizzaGanhos"></canvas></div>
-                        <div class="col-md-6"><canvas id="graficoBarrasGanhos"></canvas></div>
+                        <div class="col-md-6 m-auto"><canvas id="graficoPizzaGanhos"></canvas></div>
+                        <div class="col-md-6 m-auto mb-1"><canvas id="graficoBarrasGanhos"></canvas></div>
                     </div>
                 </div>
-                <div class="carousel-item" data-title="Investimentos">
+                <div class="carousel-item mb-5" data-title="Investimento">
                     <div class="row">
-                        <div class="col-md-6"><canvas id="graficoPizzaInvestimentos"></canvas></div>
-                        <div class="col-md-6"><canvas id="graficoBarrasInvestimentos" ></canvas></div>
+                        <div class="col-md-6 m-auto"><canvas id="graficoPizzaInvestimentos"></canvas></div>
+                        <div class="col-md-6 m-auto"><canvas id="graficoBarrasInvestimentos"></canvas></div>
                     </div>
                 </div>
             </div>
@@ -87,33 +115,52 @@
     </div>
 
 
+
+
+    <div class="modal fade" id="FiltrarDados" tabindex="-1" aria-labelledby="FiltrarDadosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content w-100 cor-de-fundo">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="filter-container d-flex jusitfy-content-center align-items-center flex-column">
+                        <label for="dataInicio" class="mb-2">Filtrar por período:</label>
+                        <input type="date" id="dataInicio" class="form-control d-inline-block w-auto mb-2">
+                        <input type="date" id="dataFim" class="form-control d-inline-block w-auto mb-2">
+                        <button id="filtrarBtn" class="btn btn-filter text-light" style="width: 100%; max-width: 120px;">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let graficos = {};
 
         function carregarDados(tipo, dataInicio, dataFim) {
-            let dados = JSON.parse(localStorage.getItem(tipo)) || [];
-            let categorias = {};
+    let dados = JSON.parse(localStorage.getItem(tipo)) || [];
+    let categorias = {}; 
 
-            let dataInicioObj = dataInicio ? new Date(dataInicio + "T00:00:00") : null;
-            let dataFimObj = dataFim ? new Date(dataFim + "T23:59:59") : null;
+    let dataInicioObj = dataInicio ? new Date(dataInicio + "T00:00:00") : null;
+    let dataFimObj = dataFim ? new Date(dataFim + "T23:59:59") : null;
 
-            dados.forEach(item => {
-                let dataItem = converterData(item.data);
-                let categoria = item.categoria;
-                let valor = parseFloat(item.valor);
+    dados.forEach(item => {
+        let dataItem = converterData(item.data);
+        let chave = tipo === "inves" ? item.investimento : item.categoria;
+        let valor = parseFloat(item.valor);
 
-                if (dataInicioObj && dataFimObj) {
-                    if (dataItem < dataInicioObj || dataItem > dataFimObj) {
-                        return;
-                    }
-                }
-
-                categorias[categoria] = (categorias[categoria] || 0) + valor;
-            });
-
-            return categorias;
+        if (dataInicioObj && dataFimObj) {
+            if (dataItem < dataInicioObj || dataItem > dataFimObj) {
+                return;
+            }
         }
 
+        categorias[chave] = (categorias[chave] || 0) + valor;
+    });
+
+    return categorias;
+}
         function converterData(dataStr) {
             let partes = dataStr.split(" ");
             let dataPartes = partes[0].split("/");
@@ -193,22 +240,24 @@
 
 
         document.addEventListener("DOMContentLoaded", function () {
-            let dataInicio = document.getElementById("dataInicio").value;
-            let dataFim = document.getElementById("dataFim").value;
+    let dataInicio = document.getElementById("dataInicio").value;
+    let dataFim = document.getElementById("dataFim").value;
 
-            atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
-            atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
-            atualizarGraficos("investimentos", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim);
+    atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
+    atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
+    atualizarGraficos("inves", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim); 
 
-            document.getElementById("filtrarBtn").addEventListener("click", function () {
-                let dataInicio = document.getElementById("dataInicio").value;
-                let dataFim = document.getElementById("dataFim").value;
-                atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
-                atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
-                atualizarGraficos("investimentos", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim);
-            });
-        });
+    document.getElementById("filtrarBtn").addEventListener("click", function () {
+        let dataInicio = document.getElementById("dataInicio").value;
+        let dataFim = document.getElementById("dataFim").value;
+        atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
+        atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
+        atualizarGraficos("inves", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim); 
+    });
+});
     </script>
+
+    <script src="src/js/btn-voltar.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

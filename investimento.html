@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="src/css/reset.css">
+    <link rel="stylesheet" href="src/css/buid.css">
+    <link rel="stylesheet" href="src/css/investimento.css">
+    <title>Investimentos</title>
+    <style>
+        @media (max-width:500px) {
+            .item-mobile {
+                display: none;
+            }
+
+            .fa-trash{
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body class="cor-de-fundo ">
+    <header class="p-4 pb-0 container d-flex justify-content-center align-items-center flex-column m-auto">
+        <div class="container d-flex flex-column align-items-start justify-content-start w-100">
+            <button class="btn btn-prev" onclick="goBack()"><img src="src/imagem/icones/sair.png" width="30" height="30"
+                    alt="Botao de voltar"></button>
+        </div>
+
+        <div class="py-4 d-flex flex-column align-items-start justify-content-start">
+            <p class="fonte-titulo fs-40 mb-0">Investimentos</p>
+            <div class="line"></div>
+        </div>
+    </header>
+    <main class="container d-flex justify-content-center align-items-center flex-column m-auto">
+        <h4 class="total text-start w-75 p-4">Total: <span id="total">R$ 0,00</span></h4>
+
+        <div class="container mt-4 d-flex justify-content-center align-items-center flex-column m-auto">
+            <table class="table table-bordered mt-2">
+                <thead>
+                    <tr class="header-table text-center fonte-texto">
+                        <th>Data</th>
+                        <th>Investimento</th>
+                        <th class="item-mobile">Banco</th>
+                        <th>Rentabilidade</th>
+                        <th class="item-mobile">Vencimento</th>
+                        <th>Valor</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-investimentos" class="fonte-texto text-center"></tbody>
+            </table>
+
+
+        </div>
+
+        <button class="btn btn-plus position-absolute" data-bs-toggle="modal" data-bs-target="#AdicionarInvestimento">
+            <i class="fas fa-plus text-light fs-14"></i> <span class="fonte-titulo text-light">Adicionar
+                investimento</span></button>
+    </main>
+
+
+    <div class="modal fade" id="AdicionarInvestimento" tabindex="-1" aria-labelledby="AdicionarInvestimentoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content w-100 cor-de-fundo">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-investimento">
+                        <div class="row d-flex flex-wrap">
+                            <div class="col-md-6 mb-2">
+                                <label class="fonte-titulo">Data e Hora:</label>
+                                <input type="datetime-local" name="data" id="data" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fonte-titulo">Investimento:</label>
+                                <input type="text" name="investimento" id="investimento" class="form-control"
+                                    placeholder="CDB" required>
+                            </div>
+                        </div>
+
+                        <div class="row d-flex flex-wrap">
+                            <div class="col-md-6 mb-2">
+                                <label class="fonte-titulo">Banco:</label>
+                                <input type="text" name="banco" id="banco" class="form-control"
+                                    placeholder="Banco Santander" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fonte-titulo">Rentabilidade:</label>
+                                <input type="text" name="rentabilidade" id="rentabilidade" class="form-control"
+                                    placeholder="107%" required>
+                            </div>
+                        </div>
+
+                        <div class="row d-flex flex-wrap">
+                            <div class="col-md-6 mb-2">
+                                <label class="fonte-titulo">Valor:</label>
+                                <input type="text" name="valor" id="valor" class="form-control" required
+                                    placeholder="R$">
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fonte-titulo">Vencimento:</label>
+                                <input type="text" name="vencimento" id="vencimento" class="form-control" required
+                                    placeholder="21/05/2026">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="submit" class="btn btn-plus border-0 text-light mt-2">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/js/btn-voltar.js"></script>
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbyrbH-q2WHMijr796kHoOUUznN7bGlF0uaQCHTP8xF3uhTSgqZhlKxHTDhpVFqqshbE/exec";  // Substitua pela nova URL do Google Apps Script
+
+        document.getElementById("form-investimento").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            let dataInput = document.getElementById("data").value;
+            let investimento = document.getElementById("investimento").value;
+            let banco = document.getElementById("banco").value;
+            let rentabilidade = document.getElementById("rentabilidade").value;
+            let vencimento = document.getElementById("vencimento").value;
+            let valorInput = document.getElementById("valor").value;
+
+
+            if (!dataInput || !investimento || !banco || !rentabilidade || !vencimento || !valorInput) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            let data = formatarDataHora(dataInput);
+            let valor = formatarParaNumero(valorInput);
+
+            let inve = { data, investimento, banco, rentabilidade, vencimento, valor };
+
+            try {
+                let response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(inve),
+                    mode: "no-cors"
+                });
+
+                salvarLocalmente(inve);
+                adicionarInvestimentoNaTela(inve);
+                document.getElementById("form-investimento").reset();
+            } catch (error) {
+                console.error("Erro ao enviar dados:", error);
+                alert("Erro ao salvar investimento.");
+            }
+        });
+
+        function salvarLocalmente(inve) {
+            let inves = JSON.parse(localStorage.getItem("inves")) || [];
+            inves.push(inve);
+            localStorage.setItem("inves", JSON.stringify(inves));
+        }
+
+        function adicionarInvestimentoNaTela(inve, index = null) {
+            let tabela = document.getElementById("tabela-investimentos");
+            let total = parseFloat(document.getElementById("total").innerText.replace("R$ ", "").replace(".", "").replace(",", ".")) || 0;
+
+            total += parseFloat(inve.valor);
+
+            let row = `<tr data-index="${index}">
+    <td class="value-td">${inve.data}</td>
+    <td class="value-td">${inve.investimento}</td>
+    <td class="value-td item-mobile">${inve.banco}</td>
+    <td class="value-td">${inve.rentabilidade}</td>
+    <td class="value-td item-mobile">${inve.vencimento}</td>
+    <td class="value-td">R$ ${formatarParaMoeda(inve.valor)}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="removerInvestimento(this)"><i class="fas fa-trash"></i></button></td>
+</tr>`;
+
+            tabela.innerHTML += row;
+            document.getElementById("total").innerText = `R$ ${formatarParaMoeda(total)}`;
+        }
+
+        function removerInvestimento(botao) {
+            let linha = botao.parentNode.parentNode;
+            let index = linha.getAttribute("data-index");
+
+            let inves = JSON.parse(localStorage.getItem("inves")) || [];
+            inves.splice(index, 1);  // Remove o item do array
+
+            localStorage.setItem("inves", JSON.stringify(inves)); // Atualiza o LocalStorage
+            linha.remove();
+
+            // Atualiza o total
+            let totalAtual = 0;
+            inves.forEach(inve => totalAtual += parseFloat(inve.valor));
+            document.getElementById("total").innerText = `R$ ${formatarParaMoeda(totalAtual)}`;
+        }
+
+        function formatarDataHora(dataHora) {
+            let dataObj = new Date(dataHora);
+            let dia = String(dataObj.getDate()).padStart(2, '0');
+            let mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+            let ano = dataObj.getFullYear();
+            let horas = String(dataObj.getHours()).padStart(2, '0');
+            let minutos = String(dataObj.getMinutes()).padStart(2, '0');
+
+            return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+        }
+
+        function formatarParaNumero(valor) {
+            return valor.replace(/\./g, '').replace(',', '.');
+        }
+
+        function formatarParaMoeda(valor) {
+            return parseFloat(valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }).replace("R$", "").trim();
+        }
+
+        document.getElementById("valor").addEventListener("input", function (e) {
+            let valor = e.target.value.replace(/\D/g, "");
+            valor = (parseFloat(valor) / 100).toFixed(2);
+            e.target.value = valor.replace(".", ",");
+        });
+
+        async function carregarInvestimentos() {
+            let tabela = document.getElementById("tabela-investimentos");
+            let total = 0;
+            tabela.innerHTML = "";
+
+            let investimentosLocais = JSON.parse(localStorage.getItem("inves")) || [];
+            investimentosLocais.forEach((inve, index) => {
+                total += parseFloat(inve.valor);
+                adicionarInvestimentoNaTela(inve, index);
+            });
+
+            document.getElementById("total").innerText = `R$ ${formatarParaMoeda(total)}`;
+        }
+
+        window.onload = carregarInvestimentos;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
