@@ -1,6 +1,6 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyFt1lMr0TeV7ap758y4nguCH5fALGK0uMha0T3LZPDs7cmBzV2diVha4OuJMjSWl1n/exec";  // Substitua pela nova URL do Google Apps Script
+const API_URL = "https://script.google.com/macros/s/AKfycbzzGVLNPejgNSVfjkd-eJmV00E9WnLq7d6NRO-R6F1mtRREgKyw2HCAGcUzMqIcgiKi/exec";  // Substitua pela nova URL do Google Apps Script
 
-document.getElementById("form-gastos").addEventListener("submit", async function (event) {
+document.getElementById("form-ganhos").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     let dataInput = document.getElementById("data").value;
@@ -16,62 +16,61 @@ document.getElementById("form-gastos").addEventListener("submit", async function
     let data = formatarDataHora(dataInput);
     let valor = formatarParaNumero(valorInput);
 
-    let gasto = { data, motivo, valor, categoria };
+    let ganho = { data, motivo, valor, categoria };
 
     try {
+        
         let response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(gasto),
+            body: new URLSearchParams(ganho),
             mode: "no-cors"
         });
 
-        salvarLocalmente(gasto);
-        adicionarGastoNaTela(gasto);
-        document.getElementById("form-gastos").reset();
+        salvarLocalmente(ganho);
+        adicionarGanhoNaTela(ganho);
+        document.getElementById("form-ganhos").reset();
     } catch (error) {
         console.error("Erro ao enviar dados:", error);
-        alert("Erro ao salvar gasto.");
+        alert("Erro ao salvar ganho.");
     }
 });
 
-function salvarLocalmente(gasto) {
-    let gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-    gastos.push(gasto);
-    localStorage.setItem("gastos", JSON.stringify(gastos));
+function salvarLocalmente(ganho) {
+    let ganhos = JSON.parse(localStorage.getItem("ganhos")) || [];
+    ganhos.push(ganho);
+    localStorage.setItem("ganhos", JSON.stringify(ganhos));
 }
 
-function adicionarGastoNaTela(gasto, index = null) {
-    let tabela = document.getElementById("tabela-gastos");
+function adicionarGanhoNaTela(ganho, index = null) {
+    let tabela = document.getElementById("tabela-ganhos");
     let total = parseFloat(document.getElementById("total").innerText.replace("R$ ", "").replace(".", "").replace(",", ".")) || 0;
 
-    total += parseFloat(gasto.valor);
+    total += parseFloat(ganho.valor);
 
     let row = `<tr data-index="${index}">
-    <td class="value-td">${gasto.data}</td>
-    <td class="value-td">${gasto.motivo}</td>
-    <td class="value-td">R$ ${formatarParaMoeda(gasto.valor)}</td>
-    <td class="value-td"><span class="categoria ${gasto.categoria}">${gasto.categoria}</span></td>
-    <td><button class="btn btn-danger btn-sm" onclick="removerGasto(this)"><i class="fas fa-trash"></i></button></td>
-</tr>`;
+        <td>${ganho.data}</td>
+        <td>${ganho.motivo}</td>
+        <td><span class="categoria ${ganho.categoria}">${ganho.categoria}</span></td>
+        <td>R$ ${formatarParaMoeda(ganho.valor)}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="removerGanho(this)"><i class="fas fa-trash"></i></button></td>
+    </tr>`;
 
     tabela.innerHTML += row;
     document.getElementById("total").innerText = `R$ ${formatarParaMoeda(total)}`;
 }
 
-function removerGasto(botao) {
+function removerGanho(botao) {
     let linha = botao.parentNode.parentNode;
     let index = linha.getAttribute("data-index");
 
-    let gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-    gastos.splice(index, 1);  // Remove o item do array
+    let ganhos = JSON.parse(localStorage.getItem("ganhos")) || [];
+    ganhos.splice(index, 1); 
 
-    localStorage.setItem("gastos", JSON.stringify(gastos)); // Atualiza o LocalStorage
+    localStorage.setItem("ganhos", JSON.stringify(ganhos));
     linha.remove();
-
-    // Atualiza o total
     let totalAtual = 0;
-    gastos.forEach(gasto => totalAtual += parseFloat(gasto.valor));
+    ganhos.forEach(ganho => totalAtual += parseFloat(ganho.valor));
     document.getElementById("total").innerText = `R$ ${formatarParaMoeda(totalAtual)}`;
 }
 
@@ -100,9 +99,9 @@ document.getElementById("valor").addEventListener("input", function (e) {
     e.target.value = valor.replace(".", ",");
 });
 
-function pesquisarGastos() {
+function pesquisarGanhos() {
     let termo = document.getElementById("search").value.toLowerCase();
-    let linhas = document.querySelectorAll("#tabela-gastos tr");
+    let linhas = document.querySelectorAll("#tabela-ganhos tr");
     linhas.forEach(linha => {
         linha.style.display = linha.innerText.toLowerCase().includes(termo) ? "" : "none";
     });
@@ -111,7 +110,7 @@ function pesquisarGastos() {
 function filtrarPorPeriodo() {
     let dataInicio = document.getElementById("dataInicio").value;
     let dataFim = document.getElementById("dataFim").value;
-    let linhas = document.querySelectorAll("#tabela-gastos tr");
+    let linhas = document.querySelectorAll("#tabela-ganhos tr");
     
     linhas.forEach(linha => {
         let dataTexto = linha.cells[0].innerText.split("/").reverse().join("-");
@@ -127,18 +126,23 @@ function filtrarPorPeriodo() {
     });
 }
 
-async function carregarGastos() {
-    let tabela = document.getElementById("tabela-gastos");
+function carregarGanhos() {
+    let tabela = document.getElementById("tabela-ganhos");
     let total = 0;
     tabela.innerHTML = "";
-
-    let gastosLocais = JSON.parse(localStorage.getItem("gastos")) || [];
-    gastosLocais.forEach((gasto, index) => {
-        total += parseFloat(gasto.valor);
-        adicionarGastoNaTela(gasto, index);
+    let ganhosLocais = JSON.parse(localStorage.getItem("ganhos")) || [];
+    ganhosLocais.forEach(ganho => {
+        total += parseFloat(ganho.valor);
+        let row = `<tr>
+            <td>${ganho.data}</td>
+            <td>${ganho.motivo}</td>
+            <td>${ganho.categoria}</td>
+            <td>R$ ${parseFloat(ganho.valor).toFixed(2)}</td>
+            <td><button class='btn btn-danger btn-sm' onclick='removerGanho(this)'><i class='fas fa-trash'></i></button></td>
+        </tr>`;
+        tabela.innerHTML += row;
     });
-
-    document.getElementById("total").innerText = `R$ ${formatarParaMoeda(total)}`;
+    document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
 }
 
-window.onload = carregarGastos;
+window.onload = carregarGanhos;

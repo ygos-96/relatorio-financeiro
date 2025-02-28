@@ -9,7 +9,8 @@ body {
     display: inline-block;
 }
 
-.Alimentação {
+.Alimentação,
+.Salário {
     background-color: #6e5021;
 }
 
@@ -18,22 +19,30 @@ body {
 }
 
 
-.Contas {
+.Contas,
+.Freelancer {
     background-color: #e00b5b;
 }
 
 
-.Transporte {
+.Transporte,
+.Vale-transporte {
     background-color: #4f364a;
 }
 
-.fa-trash{
+.Outros {
+    background-color: #ffff;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+.fa-trash {
     font-size: 12px;
 }
 
 .btn-prev:hover,
 .btn-prev:active,
-.btn-prev:focus{
+.btn-prev:focus {
     outline: none;
     border: 0;
     box-shadow: none;
@@ -91,18 +100,20 @@ td {
     border: 0;
 }
 
-.form-control:hover,
-.form-control:active,
-.form-control:focus {
-    outline: none;
-    box-shadow: none;
-}
-
 div .total {
     position: absolute;
     bottom: 30px;
     left: 50px;
 }
+
+.form-control:hover,
+.form-control:active,
+.form-control:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+
 
 @media (max-width:500px) {
     .line {
@@ -114,16 +125,17 @@ div .total {
         font-size: 10px;
     }
 
-   .total{
+    .total {
         padding: 0px !important;
     }
-    .btn-plus span{
+
+    .btn-plus span {
         font-size: 14px;
     }
-
-    .form-control::placeholder {
+    .form-control::placeholder{
         font-size: 12px;
     }
+
     div .total {
     bottom: 50px;
     font-size: 20px;
