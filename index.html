@@ -14,15 +14,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/buid.css">
-    <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="src/arq/css/basico/reset.css">
+    <link rel="stylesheet" href="src/arq/css/basico/buid.css">
+    <link rel="stylesheet" href="src/arq/css/basico/global.css">
     <title>Login - Finanças Diarias</title>
+    <style>
+        .imagem-inicio {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .acesso {
+            display: none;
+            text-align: center;
+        }
+
+        .acesso label.fade-in,
+        .acesso i.fade-in,
+        .acesso input.fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .input-error {
+            border: 2px solid red;
+        }
+    </style>
 </head>
 
 <body class="d-flex justify-content-center align-items-center flex-column cor-de-fundo fonte-texto">
-    <main class="d-flex align-items-center justify-content-center">
+    <main class="mt-auto d-flex align-items-center justify-content-center">
         <section class="container-fluid">
             <div class="imagem-inicio">
                 <img src="src/imagem/dinheiro.png" alt="Logo" class="img-fluid" width="500">
@@ -35,12 +67,12 @@
                 </div>
 
                 <input type="password" id="password" class="form-control d-inline-block w-auto" placeholder="*******">
-                <button class="btn" id="login-btn"><i class="fas fa-door-open text-light"></i></button>
+                <button class="btn btn-login" id="login-btn"><i class="fas fa-door-open text-light"></i></button>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="mt-auto h-50">
         <p>Criado por: @yg0rg_ <span><i class="fas fa-comment-dollar"></i></span> Ygor Gomes</p>
     </footer>
 
@@ -49,7 +81,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-light d-flex flex-column justify-content-center align-items-center p-4">
-                    <img src="src/imagem/icones/restricoes.png" class="img-fluid p-2 mb-2" alt="Icone que indica que a senha esta incorreta">
+                    <img src="src/imagem/icones/restricoes.png" class="img-fluid p-2 mb-2"
+                        alt="Icone que indica que a senha esta incorreta">
                     <p class="fonte-titulo fs-18 mb-0">Chave de acesso negada. Tente novamente.</p>
                 </div>
                 <div class="modal-footer border-0">

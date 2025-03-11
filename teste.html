@@ -1,95 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Ganhos Mensais</title>
+    <title>Lista de Gastos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
-    <header class="p-4 container d-flex justify-content-between align-items-center">
-        <button class="btn btn-prev" onclick="goBack()"><i class="fas fa-arrow-left"></i> Voltar</button>
-        <h2>Ganhos Mensais</h2>
-    </header>
-    <main class="container">
-        <div class="search d-flex w-100 mb-3">
-            <input type="text" class="form-control" id="search" placeholder="Pesquisar..." oninput="pesquisarGanhos()">
-        </div>
-        <div class="filter-container mb-3">
-            <label>Filtrar por período:</label>
-            <div class="d-flex">
-                <input type="date" id="dataInicio" class="form-control me-2">
-                <input type="date" id="dataFim" class="form-control me-2">
-                <button class="btn btn-filter" onclick="filtrarPorPeriodo()">Aplicar</button>
-            </div>
-        </div>
-        <table class="table table-bordered mt-2">
-            <thead>
-                <tr class="text-center">
-                    <th>Data</th>
-                    <th>Motivo</th>
-                    <th>Categoria</th>
-                    <th>Valor</th>
-                    <th>Ação</th>
+    <div class="container mt-5">
+        <h2 class="mb-4">Lista de Gastos</h2>
+
+        <!-- Botão para abrir o Modal -->
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#AdicionarGasto">
+            Adicionar Gasto
+        </button>
+
+        <!-- Tabela para exibir os produtos -->
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
                 </tr>
             </thead>
-            <tbody id="tabela-ganhos" class="text-center"></tbody>
+            <tbody id="tabela-dados">
+                <!-- Os dados da planilha aparecerão aqui -->
+            </tbody>
         </table>
-        <h4 class="text-end">Total: <span id="total">R$ 0,00</span></h4>
-    </main>
+    </div>
+
+    <!-- Modal para Adicionar Gastos -->
+    <div class="modal fade" id="AdicionarGasto" tabindex="-1" aria-labelledby="AdicionarGastoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AdicionarGastoLabel">Adicionar Gasto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-gastos">
+                        <label>Produto:</label>
+                        <input type="text" name="produto" id="produto" class="form-control" required>
+
+                        <label>Quantidade:</label>
+                        <input type="number" name="quantidade" id="quantidade" class="form-control" required>
+
+                        <label>Preço:</label>
+                        <input type="text" name="preco" id="preco" class="form-control" required placeholder="0,00">
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
     <script>
-        function pesquisarGanhos() {
-            let termo = document.getElementById("search").value.toLowerCase();
-            let linhas = document.querySelectorAll("#tabela-ganhos tr");
-            linhas.forEach(linha => {
-                linha.style.display = linha.innerText.toLowerCase().includes(termo) ? "" : "none";
-            });
-        }
+        const API_URL = "https://script.google.com/macros/s/AKfycbx_02cmwMz2DQ_dRlL63G0_BbX6SV7lNoHw6FKHSGtxUO0gg-Dhl81YhknrCOmxOuCNPA/exec";
 
-        function filtrarPorPeriodo() {
-            let dataInicio = document.getElementById("dataInicio").value;
-            let dataFim = document.getElementById("dataFim").value;
-            let linhas = document.querySelectorAll("#tabela-ganhos tr");
-            
-            linhas.forEach(linha => {
-                let dataTexto = linha.cells[0].innerText.split("/").reverse().join("-");
-                let dataItem = new Date(dataTexto);
-                let inicio = dataInicio ? new Date(dataInicio) : null;
-                let fim = dataFim ? new Date(dataFim) : null;
-                
-                if ((!inicio || dataItem >= inicio) && (!fim || dataItem <= fim)) {
-                    linha.style.display = "";
-                } else {
-                    linha.style.display = "none";
+        async function carregarDados() {
+            try {
+                let tabelaContainer = document.querySelector(".table-container"); // Obtém a div de rolagem
+                let scrollPos = tabelaContainer ? tabelaContainer.scrollTop : 0; // Salva a posição da rolagem
+
+                let resposta = await fetch(API_URL, { method: "GET" });
+
+                if (!resposta.ok) throw new Error(`Erro na API: ${resposta.status}`);
+
+                let dados = await resposta.json();
+                console.log("Dados recebidos:", dados);
+
+                let tabela = document.getElementById("tabela-dados");
+                tabela.innerHTML = "";
+
+                dados.forEach(item => {
+                    let linha = document.createElement("tr");
+                    linha.innerHTML = `
+                <td>${item["Data"] || "-"}</td>
+                <td>${item["Motivo"] || "-"}</td>
+                <td>R$ ${item["Valor"] || "-"}</td>
+                <td>${item["Categoria"] || "-"}</td>
+            `;
+                    tabela.appendChild(linha);
+                });
+
+                if (tabelaContainer) {
+                    tabelaContainer.scrollTop = scrollPos;
                 }
-            });
+
+            } catch (erro) {
+                console.error("Erro ao carregar os dados:", erro);
+            }
         }
 
-        function carregarGanhos() {
-            let tabela = document.getElementById("tabela-ganhos");
-            let total = 0;
-            tabela.innerHTML = "";
-            let ganhosLocais = JSON.parse(localStorage.getItem("ganhos")) || [];
-            ganhosLocais.forEach(ganho => {
-                total += parseFloat(ganho.valor);
-                let row = `<tr>
-                    <td>${ganho.data}</td>
-                    <td>${ganho.motivo}</td>
-                    <td>${ganho.categoria}</td>
-                    <td>R$ ${parseFloat(ganho.valor).toFixed(2)}</td>
-                    <td><button class='btn btn-danger btn-sm' onclick='removerGanho(this)'><i class='fas fa-trash'></i></button></td>
-                </tr>`;
-                tabela.innerHTML += row;
-            });
-            document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
-        }
-        
-        window.onload = carregarGanhos;
+
+        document.getElementById("form-gastos").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            let data = document.getElementById("data").value;
+            let motivo = document.getElementById("motivo").value;
+            let valor = document.getElementById("valor").value.replace(",", ".");
+            let categoria = document.getElementById("categoria").value;
+
+            if (!data || !motivo || !valor || !categoria) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            let gasto = { data, motivo, valor, categoria };
+            console.log("Dados a serem enviados:", gasto);
+
+            try {
+                let resposta = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(gasto)
+                });
+
+                if (!resposta.ok) throw new Error(`Erro na API: ${resposta.status}`);
+
+                let resultado = await resposta.json();
+                console.log("Resposta da API:", resultado);
+
+                // Fechar modal corretamente (se estiver usando um modal)
+                let modalElement = document.getElementById("AdicionarGasto");
+                let modal = bootstrap.Modal.getInstance(modalElement);
+                if (modal) {
+                    modal.hide();
+                }
+
+                setTimeout(carregarDados, 1000);
+                document.getElementById("form-gastos").reset();
+            } catch (error) {
+                console.error("Erro ao enviar dados:", error);
+                alert("Erro ao salvar gasto.");
+            }
+        });
+        window.onload = carregarDados;
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

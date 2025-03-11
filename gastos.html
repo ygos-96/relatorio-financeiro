@@ -14,13 +14,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/buid.css">
-    <link rel="stylesheet" href="src/css/gastos.css">
+    <link rel="stylesheet" href="src/arq/css/basico/reset.css">
+    <link rel="stylesheet" href="src/arq/css/basico/buid.css">
+    <link rel="stylesheet" href="src/arq/css/basico/global.css">
+    <link rel="stylesheet" href="src/arq/css/gastos.css">
     <title>Gastos Mensais</title>
+    <style>
+        .categoria-alimentacao {
+            background-color: rgb(233, 63, 63) !important;
+            color: white;
+            font-size: 14px;
+            padding: 3px 7px;
+            border-radius: 15px;
+        }
+
+        .categoria-transporte {
+            background-color: #007bff !important;
+            color: white;
+            font-size: 14px;
+            padding: 3px 7px;
+            border-radius: 15px;
+        }
+
+        .categoria-lazer {
+            background-color: #ffc107;
+            color: black;
+            font-size: 14px;
+            padding: 3px 7px;
+            border-radius: 15px;
+        }
+
+        .categoria-contas {
+            background-color: #8bff07;
+            color: black;
+            font-size: 14px;
+            padding: 3px 7px;
+            border-radius: 15px;
+        }
+
+        .categoria-outros {
+            background-color: #07cdff;
+            color: black;
+            font-size: 14px;
+            padding: 3px 7px;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 
-<body class="cor-de-fundo ">
+<body class="cor-de-fundo">
     <header class="p-4 pb-0 container d-flex justify-content-center align-items-center flex-column m-auto">
         <div class="container d-flex flex-column align-items-start justify-content-start w-100">
             <button class="btn btn-prev" onclick="goBack()"><img src="src/imagem/icones/sair.png" width="30" height="30"
@@ -33,39 +75,47 @@
         </div>
     </header>
     <main class="container d-flex justify-content-center align-items-center flex-column m-auto">
-        <div class="search d-flex w-100">
+        <!-- <div class="search d-flex w-100">
             <div class="w-100">
                 <span class="fonte-titulo fs-15 ms-1">Pesquisar</span>
                 <input type="text" class="form-control" name="search" id="search" placeholder="Pesquisar..."
                     oninput="pesquisarGastos()">
             </div>
+        </div> -->
+
+        <div class="container table-container">
+            <div class="container d-flex justify-content-center align-items-center flex-column">
+                <table class="table table-bordered mt-2">
+                    <thead>
+                        <tr class="header-table text-center fonte-texto">
+                            <th>Data</th>
+                            <th>Motivo</th>
+                            <th>Valor</th>
+                            <th>Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-dados" class="fonte-texto text-center mt-5"></tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="container mt-4 d-flex justify-content-center align-items-center flex-column m-auto">
-            <table class="table table-bordered mt-2">
-                <thead>
-                    <tr class="header-table text-center fonte-texto">
-                        <th>Data</th>
-                        <th>Motivo</th>
-                        <th>Valor</th>
-                        <th>Categoria</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody id="tabela-gastos" class="fonte-texto text-center"></tbody>
-            </table>
-        </div>
-        <div>
-            <h4 class="total text-start w-75 p-4">Total: <span id="total">R$ 0,00</span></h4>
-        </div>
-        <button class="btn btn-plus position-absolute" data-bs-toggle="modal" data-bs-target="#AdicionarGasto">
-            <i class="fas fa-plus text-light fs-14"></i> <span class="fonte-titulo text-light">Adicionar
-                gasto</span></button>
+
+
     </main>
 
-    <footer class="position-absolute d-flex justify-content-center align-items-center">
-        <a href="https://docs.google.com/spreadsheets/d/1phdzGFsmfLWmlHdy4h-lQWBlXMmaD5YtJGphKCGRuIc/edit?gid=0#gid=0" target="_blank" class="fonte-texto cor-escura"><p class="cor-escura fw-bold">Histórico</p></a>
+    <footer class="d-grid justify-content-around align-items-center mt-auto">
+        <div>
+            <h4 class="cor-escura text-start p-4">Total: <span id="total">R$ 0,00</span></h4>
+        </div>
+        <a href="https://docs.google.com/spreadsheets/d/1c8zSfAyvxff7xq8p5kUdSNrUlrOkt63paWbMIy3QkUc/edit?gid=0#gid=0"
+            target="_blank" class="fonte-texto text-center cor-escura">
+            <p class="cor-escura fw-bold">Histórico</p>
+        </a>
     </footer>
+
+    <button class="btn btn-plus" data-bs-toggle="modal" data-bs-target="#AdicionarGasto">
+        <i class="fas fa-plus text-light fs-14"></i> <span class="fonte-titulo text-light">Adicionar
+            gasto</span></button>
 
     <div class="modal fade" id="AdicionarGasto" tabindex="-1" aria-labelledby="AdicionarGastoLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -78,7 +128,7 @@
                         <div class="row d-flex flex-wrap">
                             <div class="col-md-6 mb-2">
                                 <label class="fonte-titulo">Data e Hora:</label>
-                                <input type="datetime-local" name="data" id="data" class="form-control" required>
+                                <input type="date" name="data" id="data" class="form-control" required>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <label class="fonte-titulo">Motivo:</label>
@@ -95,7 +145,7 @@
                             <div class="col-md-6 mb-2">
                                 <label class="fonte-titulo">Categoria:</label>
                                 <select name="categoria" id="categoria" class="form-control">
-                                    <option value="Alimentação">Alimentação</option>
+                                    <option value="Alimentação" class="alimentacao">Alimentação</option>
                                     <option value="Lazer">Lazer</option>
                                     <option value="Contas">Contas</option>
                                     <option value="Transporte">Transporte</option>
@@ -104,7 +154,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" class="btn btn-plus border-0 text-light mt-2">Adicionar</button>
+                            <button type="submit" class="btn btn-principal border-0 text-light mt-2">Adicionar</button>
                         </div>
                     </form>
                 </div>
@@ -112,8 +162,8 @@
         </div>
     </div>
 
-    <script src="src/js/btn-voltar.js"></script>
-    <script src="src/js/gastos.js"></script>
+    <script src="src/arq/js/api/api-gastos.js"></script>
+    <script src="src/arq/js/btn-voltar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
