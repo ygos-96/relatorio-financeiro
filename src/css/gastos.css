@@ -104,6 +104,17 @@ div .total {
     left: 50px;
 }
 
+footer{
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+footer a{
+    text-decoration: none;
+
+}
+
 @media (max-width:500px) {
     .line {
         width: 85vw;

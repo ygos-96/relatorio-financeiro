@@ -145,4 +145,9 @@ function carregarGanhos() {
     document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
 }
 
+function formatarParaNumero(valor) {
+    return parseFloat(valor.replace(/\./g, '').replace(',', '.')) || 0;
+}
+
+
 window.onload = carregarGanhos;

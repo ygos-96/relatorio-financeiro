@@ -113,6 +113,16 @@ div .total {
     box-shadow: none;
 }
 
+footer{
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+footer a{
+    text-decoration: none;
+
+}
 
 
 @media (max-width:500px) {

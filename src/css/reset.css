@@ -14,6 +14,10 @@
   background-color: var(--cor-de-fundo);
 }
 
+.cor-escura{
+  color: var(--cor-escura);
+}
+
 .fonte-titulo {
   font-family: var(--fonte-titulo);
 }
