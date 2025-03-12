@@ -1,0 +1,106 @@
+.categoria-salario {
+    background-color: rgb(233, 63, 63) !important;
+    color: white;
+    font-size: 14px;
+    padding: 3px 7px;
+    border-radius: 15px;
+}
+
+.categoria-vale-transporte {
+    background-color: #007bff !important;
+    color: white;
+    font-size: 14px;
+    padding: 3px 7px;
+    border-radius: 15px;
+}
+
+.categoria-freelancer {
+    background-color: #8bff07;
+    color: black;
+    font-size: 14px;
+    padding: 3px 7px;
+    border-radius: 15px;
+}
+
+.categoria-outros {
+    background-color: #07cdff;
+    color: black;
+    font-size: 14px;
+    padding: 3px 7px;
+    border-radius: 15px;
+}
+
+.categoria {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+  }
+  .fa-trash {
+    font-size: 12px;
+  }
+  
+  .btn-prev:hover,
+  .btn-prev:active,
+  .btn-prev:focus {
+    outline: none;
+    border: 0;
+    box-shadow: none;
+  }
+  
+  .line {
+    background-color: var(--cor-escura);
+    height: 8px;
+    width: 65vw;
+  }
+  
+  .btn-plus,
+  .btn-plus:hover,
+  .btn-plus:active,
+  .btn-plus:focus {
+    background-color: var(--cor-escura);
+    border: 2px solid #ffff;
+    position: fixed;
+    bottom: 28px;
+    right: 50px;
+    outline: none;
+    box-shadow: none;
+  }
+  
+  footer {
+    grid-template-columns: repeat(3, 1fr);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  @media (max-width: 500px) {
+    .line {
+      width: 85vw;
+    }
+  
+    th,
+    td {
+      font-size: 10px;
+    }
+  
+    .total {
+      padding: 0px !important;
+    }
+    .btn-plus span {
+      font-size: 14px;
+    }
+  
+    .form-control::placeholder {
+      font-size: 12px;
+    }
+    div .total {
+      font-size: 20px;
+    }
+  
+    .btn-plus {
+      bottom: 10px;
+      right: 10px;
+  }
+  }
+  

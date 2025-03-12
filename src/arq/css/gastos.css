@@ -1,3 +1,43 @@
+.categoria-alimentacao {
+  background-color: rgb(233, 63, 63) !important;
+  color: white;
+  font-size: 14px;
+  padding: 3px 7px;
+  border-radius: 15px;
+}
+
+.categoria-transporte {
+  background-color: #007bff !important;
+  color: white;
+  font-size: 14px;
+  padding: 3px 7px;
+  border-radius: 15px;
+}
+
+.categoria-lazer {
+  background-color: #ffc107;
+  color: black;
+  font-size: 14px;
+  padding: 3px 7px;
+  border-radius: 15px;
+}
+
+.categoria-contas {
+  background-color: #8bff07;
+  color: black;
+  font-size: 14px;
+  padding: 3px 7px;
+  border-radius: 15px;
+}
+
+.categoria-outros {
+  background-color: #07cdff;
+  color: black;
+  font-size: 14px;
+  padding: 3px 7px;
+  border-radius: 15px;
+}
+
 .categoria {
   padding: 5px 10px;
   border-radius: 5px;
@@ -33,11 +73,6 @@
   right: 50px;
   outline: none;
   box-shadow: none;
-}
-
-.btn-danger {
-  background-color: rgb(190, 5, 5);
-  border: 0;
 }
 
 footer {

@@ -4,61 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <title>Relatórios Financeiros</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-        <link rel="stylesheet" href="src/arq/css/basico/reset.css">
-        <link rel="stylesheet" href="src/arq/css/basico/buid.css">
-        <link rel="stylesheet" href="src/arq/css/basico/global.css">
-
+    <link rel="stylesheet" href="src/arq/css/basico/reset.css">
+    <link rel="stylesheet" href="src/arq/css/basico/buid.css">
+    <link rel="stylesheet" href="src/arq/css/basico/global.css">
+    <link rel="stylesheet" href="src/arq/css/resumo.css">
     <style>
-        header p {
-            color: var(--cor-escura);
-        }
-
-        .line {
-            background-color: var(--cor-escura);
-            height: 8px;
-            width: 65vw;
-        }
-
-        ol {
-            list-style: none;
-        }
-
-        .carousel-container {
+        .carousel-item {
             text-align: center;
         }
 
-        #carouselTitle {
-            color: var(--cor-escura);
+        .grafico-container {
+            max-width: 500px;
+
         }
 
-        .btn-filter,
-        .btn-filter:hover,
-        .btn-filter:active,
-        .btn-filter:focus {
-            background-color: var(--cor-escura);
-            width: 40px;
-            height: 40px;
-            border: 2px solid #fff;
-            outline: none;
-            box-shadow: none;
+        .item-planilha {
+            grid-template-columns: repeat(2, 600px);
         }
     </style>
 </head>
 
 <body class="cor-de-fundo">
-
     <header class="p-4 pb-0 container d-flex justify-content-center align-items-center flex-column m-auto">
         <div class="container d-flex flex-column align-items-start justify-content-start w-100">
             <button class="btn btn-prev" onclick="goBack()"><img src="src/imagem/icones/sair.png" width="30" height="30"
@@ -66,203 +35,180 @@
         </div>
 
         <div class="py-4 d-flex flex-column align-items-start justify-content-start">
-            <p class="fonte-titulo fs-40 mb-0">Relatórios</p>
+            <p class="fonte-titulo fs-40 mb-0">Relatório Mensal</p>
             <div class="line"></div>
         </div>
     </header>
-    <main>
-        <div class="d-flex justify-content-around align-items-center my-3">
-            <span></span>
-            <h3 id="carouselTitle" class="text-center fonte-titulo fs-35 fw-bold">Gastos</h3>
-            <button class="btn btn-filter  rounded-circle" data-bs-toggle="modal" data-bs-target="#FiltrarDados"><i
-                    class="fas fa-filter text-light fs-13"></i></button>
-        </div>
-
-    </main>
-    <div class="container">
-        <div class="carousel-controls">
-        </div>
-
-        <div id="financeiroCarousel" class="carousel slide" data-bs-ride="carousel">
-            <!-- Indicadores -->
-            <ol class="carousel-indicators">
-                <li data-bs-target="#financeiroCarousel" data-bs-slide-to="0" class="active"></li>
-                <li data-bs-target="#financeiroCarousel" data-bs-slide-to="1"></li>
-                <li data-bs-target="#financeiroCarousel" data-bs-slide-to="2"></li>
-            </ol>
-
-            <div class="carousel-inner">
-                <div class="carousel-item active mb-5" data-title="Gastos">
-                    <div class="row">
-                        <div class="col-md-6 m-auto"><canvas id="graficoPizzaGastos"></canvas></div>
-                        <div class="col-md-6 m-auto mb-1"><canvas id="graficoBarrasGastos"></canvas></div>
+    <section>
+        <div class="container-fluid text-center mt-4">
+            <div id="financeiroCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <h3 class="fonte-titulo cor-escura">Gastos</h3>
+                        <div class="item-planilha d-grid justify-content-center align-items-center">
+                            <div class="grafico-container"><canvas id="graficoPizzaGastos"></canvas></div>
+                            <div class="d-flex flex-column">
+                                <div class="grafico-container"><canvas id="graficoBarrasGastos"></canvas></div>
+                                <div class="grafico-container"><canvas id="graficoLinhaGastos"></canvas></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="carousel-item mb-5" data-title="Ganhos">
-                    <div class="row">
-                        <div class="col-md-6 m-auto"><canvas id="graficoPizzaGanhos"></canvas></div>
-                        <div class="col-md-6 m-auto mb-1"><canvas id="graficoBarrasGanhos"></canvas></div>
+                    <div class="carousel-item">
+                        <h3 class="fonte-titulo cor-escura">Ganhos</h3>
+                        <div class="item-planilha d-grid justify-content-center align-items-center">
+                            <div class="grafico-container"><canvas id="graficoPizzaGanhos"></canvas></div>
+                            <div class="d-flex flex-column">
+                                <div class="grafico-container"><canvas id="graficoBarrasGanhos"></canvas></div>
+                                <div class="grafico-container"><canvas id="graficoLinhaGanhos"></canvas></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="carousel-item mb-5" data-title="Investimento">
-                    <div class="row">
-                        <div class="col-md-6 m-auto"><canvas id="graficoPizzaInvestimentos"></canvas></div>
-                        <div class="col-md-6 m-auto"><canvas id="graficoBarrasInvestimentos"></canvas></div>
+                    <div class="carousel-item">
+                        <h3 class="fonte-titulo cor-escura">Investimentos</h3>
+                        <div class="item-planilha d-grid justify-content-center align-items-center">
+                            <div class="grafico-container"><canvas id="graficoPizzaInvestimentos"></canvas></div>
+                            <div class="d-flex flex-column">
+                                <div class="grafico-container"><canvas id="graficoBarrasInvestimentos"></canvas></div>
+                                <div class="grafico-container"><canvas id="graficoLinhaInvestimentos"></canvas></div>
+                            </div>
+                        </div>
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#financeiroCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#financeiroCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
+    </section>
 
-
-
-
-    <div class="modal fade" id="FiltrarDados" tabindex="-1" aria-labelledby="FiltrarDadosLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content w-100 cor-de-fundo">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="filter-container d-flex jusitfy-content-center align-items-center flex-column">
-                        <label for="dataInicio" class="mb-2">Filtrar por período:</label>
-                        <input type="date" id="dataInicio" class="form-control d-inline-block w-auto mb-2">
-                        <input type="date" id="dataFim" class="form-control d-inline-block w-auto mb-2">
-                        <button id="filtrarBtn" class="btn btn-filter text-light" style="width: 100%; max-width: 120px;">Aplicar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
-        let graficos = {};
+        // 🎨 Definição de cores para cada categoria
+        const coresCategorias = {
+            "salario": "rgb(233, 63, 63)",
+            "transporte": "#007bff",
+            "freelancer": "#8bff07",
+            "outros": "#8E44AD",
+            "alimentacao": "rgb(233, 63, 63)",
+            "lazer": "#ffc107",
+            "contas": "#8bff07",
+            "vale-transporte": "#007bff",
+            "investimento": "#ffc107"
+        };
 
-        function carregarDados(tipo, dataInicio, dataFim) {
-    let dados = JSON.parse(localStorage.getItem(tipo)) || [];
-    let categorias = {}; 
+        // 🎨 Mapa para armazenar cores aleatórias dos investimentos
+        const coresInvestimentos = {};
 
-    let dataInicioObj = dataInicio ? new Date(dataInicio + "T00:00:00") : null;
-    let dataFimObj = dataFim ? new Date(dataFim + "T23:59:59") : null;
+        // 🎨 Função para gerar cores aleatórias em formato hexadecimal
+        function gerarCorAleatoria() {
+            return `#${Math.floor(Math.random() * 16777215).toString(16)}`; // Gera um código de cor aleatório
+        }
 
-    dados.forEach(item => {
-        let dataItem = converterData(item.data);
-        let chave = tipo === "inves" ? item.investimento : item.categoria;
-        let valor = parseFloat(item.valor);
+        async function carregarDados(apiUrl, tipo, graficoPizza, graficoBarras, graficoLinha) {
+            try {
+                let resposta = await fetch(apiUrl);
+                if (!resposta.ok) throw new Error(`Erro na API: ${resposta.status}`);
 
-        if (dataInicioObj && dataFimObj) {
-            if (dataItem < dataInicioObj || dataItem > dataFimObj) {
-                return;
+                let dadosTexto = await resposta.text();
+                console.log(`Resposta bruta da API (${tipo}):`, dadosTexto);
+
+                let dados = JSON.parse(dadosTexto);
+
+                if (!Array.isArray(dados)) throw new Error("Formato inesperado da API");
+
+                let categorias = {};
+                let valoresPorDia = Array(31).fill(0);
+
+                dados.forEach(item => {
+                    let categoria = tipo === "investimentos" ? item["Investimento"] : item["Categoria"];
+                    let valor = parseFloat(item["Valor"] || 0);
+
+                    if (!categoria || isNaN(valor) || categoria === "") return;
+
+                    let dia = item["Data"] ? new Date(item["Data"]).getDate() : null;
+                    if (dia) valoresPorDia[dia] += valor;
+
+                    // ✅ Padroniza o nome da categoria/investimento
+                    categoria = String(categoria).trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+                    categorias[categoria] = (categorias[categoria] || 0) + valor;
+                });
+
+                const labelsCategorias = Object.keys(categorias).length ? Object.keys(categorias) : ["Sem Dados"];
+                const valoresCategorias = Object.values(categorias).length ? Object.values(categorias) : [0];
+
+                // 🎨 Garante que:
+                //   - Gastos e Ganhos usem cores fixas
+                //   - Investimentos usem cores aleatórias fixas na sessão
+                const coresUsadas = labelsCategorias.map(cat => {
+                    if (tipo === "investimentos") {
+                        if (!coresInvestimentos[cat]) {
+                            coresInvestimentos[cat] = gerarCorAleatoria(); // Se não tiver cor, gera uma nova
+                        }
+                        return coresInvestimentos[cat]; // Usa a cor armazenada
+                    }
+                    return coresCategorias[cat] || "#BDC3C7"; // Se não encontrar a categoria nos gastos/ganhos, usa cinza
+                });
+
+                new Chart(document.getElementById(graficoPizza), {
+                    type: 'pie',
+                    data: {
+                        labels: labelsCategorias,
+                        datasets: [{
+                            data: valoresCategorias,
+                            backgroundColor: coresUsadas
+                        }]
+                    }
+                });
+
+                new Chart(document.getElementById(graficoBarras), {
+                    type: 'bar',
+                    data: {
+                        labels: labelsCategorias,
+                        datasets: [{
+                            label: tipo,
+                            data: valoresCategorias,
+                            backgroundColor: coresUsadas,
+                            borderColor: coresUsadas,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+
+                new Chart(document.getElementById(graficoLinha), {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: 31 }, (_, i) => i + 1),
+                        datasets: [{
+                            label: tipo,
+                            data: valoresPorDia,
+                            borderColor: "#3498DB",
+                            backgroundColor: "rgba(52, 152, 219, 0.2)",
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+
+            } catch (erro) {
+                console.error(`Erro ao carregar os dados (${tipo}):`, erro);
             }
         }
 
-        categorias[chave] = (categorias[chave] || 0) + valor;
-    });
+        // 🔗 Chamar as funções com os endpoints corretos
+        carregarDados('https://script.google.com/macros/s/AKfycbx_02cmwMz2DQ_dRlL63G0_BbX6SV7lNoHw6FKHSGtxUO0gg-Dhl81YhknrCOmxOuCNPA/exec', 'gastos', 'graficoPizzaGastos', 'graficoBarrasGastos', 'graficoLinhaGastos');
 
-    return categorias;
-}
-        function converterData(dataStr) {
-            let partes = dataStr.split(" ");
-            let dataPartes = partes[0].split("/");
+        carregarDados('https://script.google.com/macros/s/AKfycbwMqL3ZjiTynUoFFWoBgxAHcTjapK3ImAgI2p0B6ES8T9xfSHm4bZ8gGE1Wjs4J4Kf83g/exec', 'ganhos', 'graficoPizzaGanhos', 'graficoBarrasGanhos', 'graficoLinhaGanhos');
 
-            let dataISO = `${dataPartes[2]}-${dataPartes[1]}-${dataPartes[0]}T${partes[1]}:00`;
+        carregarDados('https://script.google.com/macros/s/AKfycbxjkUOPp1R0Fp0HJlAB6bdobBoYXdk88UZGK9trflDiqeN9ggmm-dSn8lcH2N36yL2T4w/exec', 'investimentos', 'graficoPizzaInvestimentos', 'graficoBarrasInvestimentos', 'graficoLinhaInvestimentos');
 
-            return new Date(dataISO);
-        }
-
-        function atualizarGraficos(tipo, idPizza, idBarras, dataInicio, dataFim) {
-            let dados = carregarDados(tipo, dataInicio, dataFim);
-            let categorias = Object.keys(dados);
-            let valores = Object.values(dados);
-            let cores = ["#ff5733", "#33b5e5", "#ffbb33", "#2ecc71"];
-
-
-            if (categorias.length === 0) {
-                console.warn(`Nenhum dado encontrado para: ${tipo}`);
-
-                substituirCanvas(idPizza);
-                substituirCanvas(idBarras);
-
-                return;
-            }
-
-
-            if (graficos[idPizza]) {
-                graficos[idPizza].destroy();
-            }
-            if (graficos[idBarras]) {
-                graficos[idBarras].destroy();
-            }
-
-            substituirCanvas(idPizza);
-            substituirCanvas(idBarras);
-
-            let ctxPizza = document.getElementById(idPizza).getContext("2d");
-            let ctxBarras = document.getElementById(idBarras).getContext("2d");
-
-            graficos[idPizza] = new Chart(ctxPizza, {
-                type: "pie",
-                data: { labels: categorias, datasets: [{ data: valores, backgroundColor: cores }] }
-            });
-
-            graficos[idBarras] = new Chart(ctxBarras, {
-                type: "bar",
-                data: {
-                    labels: categorias,
-                    datasets: [{ label: "Valor (R$)", data: valores, backgroundColor: cores, borderWidth: 1 }]
-                },
-                options: { scales: { y: { beginAtZero: true } } }
-            });
-        }
-
-        function substituirCanvas(idCanvas) {
-            let canvasAntigo = document.getElementById(idCanvas);
-            if (!canvasAntigo) return;
-
-            let novoCanvas = document.createElement("canvas");
-            novoCanvas.id = idCanvas;
-
-            canvasAntigo.replaceWith(novoCanvas);
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var carouselElement = document.getElementById('financeiroCarousel');
-            var carousel = new bootstrap.Carousel(carouselElement, {
-                interval: 1800000
-            });
-
-            carouselElement.addEventListener('slide.bs.carousel', function (event) {
-                var activeItem = event.relatedTarget;
-                var newTitle = activeItem.getAttribute('data-title');
-                document.getElementById('carouselTitle').innerText = newTitle;
-            });
-        });
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-    let dataInicio = document.getElementById("dataInicio").value;
-    let dataFim = document.getElementById("dataFim").value;
-
-    atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
-    atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
-    atualizarGraficos("inves", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim); 
-
-    document.getElementById("filtrarBtn").addEventListener("click", function () {
-        let dataInicio = document.getElementById("dataInicio").value;
-        let dataFim = document.getElementById("dataFim").value;
-        atualizarGraficos("gastos", "graficoPizzaGastos", "graficoBarrasGastos", dataInicio, dataFim);
-        atualizarGraficos("ganhos", "graficoPizzaGanhos", "graficoBarrasGanhos", dataInicio, dataFim);
-        atualizarGraficos("inves", "graficoPizzaInvestimentos", "graficoBarrasInvestimentos", dataInicio, dataFim); 
-    });
-});
     </script>
-
-
-
-    <script src="src/arq/js/btn-voltar.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
