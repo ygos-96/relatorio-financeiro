@@ -1,65 +1,73 @@
-  
-  .btn-prev:hover,
-  .btn-prev:active,
-  .btn-prev:focus {
-    outline: none;
-    border: 0;
-    box-shadow: none;
+.btn-prev:hover,
+.btn-prev:active,
+.btn-prev:focus {
+  outline: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.line {
+  background-color: var(--cor-escura);
+  height: 8px;
+  width: 65vw;
+}
+
+.btn-plus,
+.btn-plus:hover,
+.btn-plus:active,
+.btn-plus:focus {
+  background-color: var(--cor-escura);
+  border: 2px solid #ffff;
+  position: fixed;
+  bottom: 28px;
+  right: 50px;
+  outline: none;
+  box-shadow: none;
+}
+
+footer {
+  grid-template-columns: repeat(3, 1fr);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (max-width: 780px){
+  .item-mobile,
+  #tabela-dados tr td:nth-child(3),
+  #tabela-dados tr td:nth-child(5) {
+    display: none;
   }
-  
+} 
+
+@media (max-width: 500px) {
   .line {
-    background-color: var(--cor-escura);
-    height: 8px;
-    width: 65vw;
+    width: 85vw;
   }
-  
-  .btn-plus,
-  .btn-plus:hover,
-  .btn-plus:active,
-  .btn-plus:focus {
-    background-color: var(--cor-escura);
-    border: 2px solid #ffff;
-    position: fixed;
-    bottom: 28px;
-    right: 50px;
-    outline: none;
-    box-shadow: none;
+
+  th,
+  td {
+    font-size: 10px;
   }
-  
-  footer {
-    grid-template-columns: repeat(3, 1fr);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+
+  .total {
+    padding: 0px !important;
   }
-  
-  @media (max-width: 500px) {
-    .line {
-      width: 85vw;
-    }
-  
-    th,
-    td {
-      font-size: 10px;
-    }
-  
-    .total {
-      padding: 0px !important;
-    }
-    .btn-plus span {
-      font-size: 14px;
-    }
-  
-    .form-control::placeholder {
-      font-size: 12px;
-    }
-    div .total {
-      font-size: 20px;
-    }
-  
-    .btn-plus {
-      bottom: 10px;
-      right: 10px;
+  .btn-plus span {
+    font-size: 14px;
   }
+
+  .form-control::placeholder {
+    font-size: 12px;
   }
-  
+  div .total {
+    font-size: 20px;
+  }
+
+  .btn-plus {
+    bottom: 10px;
+    right: 10px;
+  }
+
+
+}

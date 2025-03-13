@@ -25,6 +25,11 @@
     outline: none;
     box-shadow: none;
   }
+
+  .fa-chevron-right,
+  .fa-chevron-left {
+    opacity: 1;
+  }
   
   footer {
     grid-template-columns: repeat(3, 1fr);

@@ -1,7 +1,7 @@
 .categoria-salario {
     background-color: rgb(233, 63, 63) !important;
     color: white;
-    font-size: 14px;
+    font-size: 10px;
     padding: 3px 7px;
     border-radius: 15px;
 }
@@ -9,7 +9,7 @@
 .categoria-vale-transporte {
     background-color: #007bff !important;
     color: white;
-    font-size: 14px;
+    font-size: 10px;
     padding: 3px 7px;
     border-radius: 15px;
 }
@@ -17,7 +17,7 @@
 .categoria-freelancer {
     background-color: #8bff07;
     color: black;
-    font-size: 14px;
+    font-size: 10px;
     padding: 3px 7px;
     border-radius: 15px;
 }
@@ -25,7 +25,7 @@
 .categoria-outros {
     background-color: #07cdff;
     color: black;
-    font-size: 14px;
+    font-size: 10px;
     padding: 3px 7px;
     border-radius: 15px;
 }

@@ -19,27 +19,6 @@
     <link rel="stylesheet" href="src/arq/css/basico/global.css">
     <link rel="stylesheet" href="src/arq/css/investimento.css">
     <title>Investimentos</title>
-    <style>
-        footer {
-            grid-template-columns: repeat(3, 1fr);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .btn-plus,
-        .btn-plus:hover,
-        .btn-plus:active,
-        .btn-plus:focus {
-            background-color: var(--cor-escura);
-            border: 2px solid #ffff;
-            position: fixed;
-            bottom: 28px;
-            right: 50px;
-            outline: none;
-            box-shadow: none;
-        }
-    </style>
 </head>
 
 <body class="cor-de-fundo ">
@@ -81,19 +60,18 @@
         </div>
 
     </main>
-    <footer class="d-grid justify-content-around align-items-center mt-auto">
-        <div>
-            <h4 class="cor-escura text-start p-4">Total: <span id="total">R$ 0,00</span></h4>
+    <footer class="container-fluid mb-3 d-grid justify-content-around align-items-center mt-auto">
+        <div class="d-flex align-items-center">
+            <h4 class="cor-escura text-start fs-13">Total: <span id="total">R$ 0,00</span></h4>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1c8zSfAyvxff7xq8p5kUdSNrUlrOkt63paWbMIy3QkUc/edit?gid=1362765545#gid=1362765545"
+        <a href="https://docs.google.com/spreadsheets/d/1c8zSfAyvxff7xq8p5kUdSNrUlrOkt63paWbMIy3QkUc/edit?gid=0#gid=0"
             target="_blank" class="fonte-texto text-center cor-escura">
-            <p class="cor-escura fw-bold">Histórico</p>
+            <p class="cor-escura fw-bold fs-13 mb-2">Histórico</p>
         </a>
     </footer>
 
-
     <button class="btn btn-plus" data-bs-toggle="modal" data-bs-target="#AdicionarInvestimento">
-        <i class="fas fa-plus text-light fs-14"></i> <span class="fonte-titulo text-light">Adicionar
+        <i class="fas fa-plus text-light fs-14"></i> <span class="fonte-titulo text-light">
             investimento</span></button>
 
     <div class="modal fade" id="AdicionarInvestimento" tabindex="-1" aria-labelledby="AdicionarInvestimentoLabel"
@@ -135,7 +113,7 @@
                                 <label class="fonte-titulo">Vencimento:</label>
                                 <input type="date" name="vencimento" id="vencimento" class="form-control" required
                                     placeholder="21/05/2026">
-                               
+
                             </div>
                             <div class="col-md-6 mb-2">
                                 <label class="fonte-titulo">Valor:</label>
